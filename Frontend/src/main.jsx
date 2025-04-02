@@ -4,6 +4,8 @@ import './index.css'
 import {BrowserRouter,Routes,Route} from 'react-router'
 import MainLayout from './Layouts/mainLayout'
 import HomePage from './Routes/HomePage/homePage'
+import Expenses from './Routes/ExpensesPage/expensesPage'
+import Incomes from './Routes/IncomesPage/incomesPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -11,7 +13,8 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route element={<MainLayout/>}>
           <Route path='/' element={<HomePage/>} />
-          <Route path='/about' element={<div>About</div>} />
+          <Route path='/expenses' element={<Expenses/>} />
+          <Route path='/incomes' element={<Incomes/>} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function homePage() {
+function expensesPage() {
   return (
-    <HomePageContainer>
-      Home
-    </HomePageContainer>
+    <ExpensesPageContainer>
+      Expenses
+    </ExpensesPageContainer>
   )
 }
 
-export default homePage
+export default expensesPage
 
-const HomePageContainer = styled.div`
+const ExpensesPageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
