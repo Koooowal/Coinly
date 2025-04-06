@@ -1,22 +1,14 @@
 import React from 'react'
-import styled from 'styled-components'
+import './incomesPage.css'
 
 function IncomesPage() {
   return (
-    <IncomesPageContainer>
+    <div className='incomes-page'>
       Incomes
-    </IncomesPageContainer>
+    </div>
   )
 }
 
 export default IncomesPage
 
-const IncomesPageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  width: 100%;
-  height: 100vh;
-  background-color: rgb(255, 250, 237);
-`
+
