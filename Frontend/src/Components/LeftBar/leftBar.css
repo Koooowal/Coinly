@@ -6,7 +6,7 @@
     width: 20%;
     height: 100vh;
     position: sticky;
-    background-color: #fff0cf;
+    background-color: #1b1b1b;
     top: 0;
     padding: 16px 0px;
     min-width: 200px;
@@ -15,9 +15,9 @@
   .title {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     font-family: "Winky Sans", sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
   }
 
@@ -27,16 +27,17 @@
   }
 
   .title h2 {
-    color: white;
+    color: #1b1b1b;
+    letter-spacing: 4px;
     text-shadow: 
-      -2px -2px 0 black, 
-       2px -2px 0 black, 
-      -2px  2px 0 black, 
-       2px  2px 0 black,
-      -3px  0px 0 black, 
-       3px  0px 0 black, 
-       0px -3px 0 black, 
-       0px  3px 0 black;
+      -2px -2px 0 rgb(255, 213, 0), 
+       2px -2px 0 rgb(255, 213, 0), 
+      -2px  2px 0 rgb(255, 213, 0), 
+       2px  2px 0 rgb(255, 213, 0),
+      -3px  0px 0 rgb(255, 213, 0), 
+       3px  0px 0 rgb(255, 213, 0), 
+       0px -3px 0 rgb(255, 213, 0), 
+       0px  3px 0 rgb(255, 213, 0);
   }
 
   .nav {
@@ -46,7 +47,8 @@
   }
 
   .nav-link {
-    width: 180px;
+    color:rgb(255, 213, 0);
+    width: 100%;
     list-style: none;
     font-size: 18px;
     font-weight: 500;
@@ -57,25 +59,23 @@
     transition: background 0.3s ease;
   }
 
-  .nav-link:hover {
-    background-color: #ffcc5c;
+  .nav-link:hover, .nav-link.active {
+    background-color: #444444;
   }
-
-  .nav-link.active {
-    background-color: #ffcc5c;
-  }
-
+  
   .user{
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
     gap: 10px;
+    color: rgb(255, 213, 0);
   }
 
   .user svg,.logout svg{
     width: 32px;
     height: 32px;
+    color: rgb(255, 213, 0);
   }
 
   .logout{

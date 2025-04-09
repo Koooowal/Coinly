@@ -8,16 +8,16 @@ import { IoIosLogOut } from "react-icons/io";
 function LeftBar() {
   const [active, setActive] = useState('Home');
   const items = [
-    { name: 'Home', path: '/' },
-    { name: 'Expenses', path: '/expenses' },
-    { name: 'Incomes', path: '/incomes' },
+    { name: 'Home', path: '/dashboard' },
+    { name: 'Expenses', path: '/dashboard/expenses' },
+    { name: 'Incomes', path: '/dashboard/incomes' },
   ];
   return (
   <div className="left-bar">
     <div className="main">
       <div className="title">
         <img src={logo} alt="Coinly Logo" />
-        <h2>Coinly</h2>
+        <h2>COINLY</h2>
       </div>
       <div className="nav">
       {items.map(item => (

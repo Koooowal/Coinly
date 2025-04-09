@@ -1,23 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
+import './homePage.css'
 
 function homePage() {
   return (
-    <HomePageContainer>
-      Home
-    </HomePageContainer>
+    <div className='home-page'>
+      
+    </div>
   )
 }
 
 export default homePage
 
-const HomePageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  width: 100%;
-  height: 100vh;
-  background-color:rgb(255, 250, 237);
-
-`
