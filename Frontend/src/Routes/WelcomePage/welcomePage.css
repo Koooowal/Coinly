@@ -13,10 +13,9 @@
    justify-content: center;
    gap: 16px;
    text-align: center;
-   
    h1{
     font-size: 128px;
-    background: linear-gradient(to right, #ffc400, #d9e555);
+    background: linear-gradient(to right, #e2ac09d8, #ffea00);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -46,7 +45,7 @@
 
     &:hover {
       background-color: white;
-      color: rgb(255, 213, 0);
+      color: rgb(200, 167, 0);
     }
   }
 }
