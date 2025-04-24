@@ -1,87 +1,142 @@
-  .left-bar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 20%;
-    height: 100vh;
-    position: sticky;
-    background-color: #1b1b1b;
-    top: 0;
-    padding: 16px 0px;
-    min-width: 200px;
-  }
+.left-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20%;
+  height: 100vh;
+  position: sticky;
+  background-color: #1b1b1b;
+  top: 0;
+  padding: 16px 0px;
+}
 
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.title img {
+  width: 40px;
+  height: 40px;
+}
+
+.title h2 {
+  color: #1b1b1b;
+  letter-spacing: 4px;
+  text-shadow:
+     -2px -2px 0 rgb(255, 213, 0),
+      2px -2px 0 rgb(255, 213, 0),
+     -2px  2px 0 rgb(255, 213, 0),
+      2px  2px 0 rgb(255, 213, 0),
+    -3px  0px 0 rgb(255, 213, 0),
+      3px  0px 0 rgb(255, 213, 0),
+      0px -3px 0 rgb(255, 213, 0),
+      0px  3px 0 rgb(255, 213, 0);
+}
+
+.nav {
+  display: flex;
+  padding: 0;
+  flex-direction: column;
+  width: 85%;
+  margin-top: 16px;
+}
+
+.nav-link {
+  color: rgb(255, 213, 0);
+  width: 100%;
+  list-style: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  border-radius: 12px;
+  padding: 8px;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  text-align:left;
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: #444444;
+}
+
+.user {
+  padding: 0px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap:10px;
+  margin-bottom: 20px;
+}
+
+.user-details{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  color: rgb(255, 213, 0);
+}
+
+.user svg, .logout svg {
+  width: 32px;
+  height: 32px;
+  color: rgb(255, 213, 0);
+}
+
+.logout {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1240px) {
+  
   .title {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-family: "Winky Sans", sans-serif;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
   }
-
+  
   .title img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .title h2 {
-    color: #1b1b1b;
-    letter-spacing: 4px;
-    text-shadow: 
-      -2px -2px 0 rgb(255, 213, 0), 
-       2px -2px 0 rgb(255, 213, 0), 
-      -2px  2px 0 rgb(255, 213, 0), 
-       2px  2px 0 rgb(255, 213, 0),
-      -3px  0px 0 rgb(255, 213, 0), 
-       3px  0px 0 rgb(255, 213, 0), 
-       0px -3px 0 rgb(255, 213, 0), 
-       0px  3px 0 rgb(255, 213, 0);
-  }
-
-  .nav {
-    display: flex;
-    padding: 0;
-    flex-direction: column;
+    width: 40px;
+    height: 40px;
   }
 
   .nav-link {
-    color:rgb(255, 213, 0);
-    width: 100%;
-    list-style: none;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 16px;
-    border-radius: 16px;
-    padding: 8px;
-    transition: background 0.3s ease;
+    font-size: 17px;
   }
 
-  .nav-link:hover, .nav-link.active {
-    background-color: #444444;
+}
+
+@media (max-width: 1024px) {
+  .left-bar {
+    min-width: 200px;
   }
   
-  .user{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    color: rgb(255, 213, 0);
+  .title {
+    font-size: 20px;
   }
-
-  .user svg,.logout svg{
-    width: 32px;
-    height: 32px;
-    color: rgb(255, 213, 0);
+  
+  .title img {
+    width: 35px;
+    height: 35px;
   }
-
-  .logout{
-    margin-left: 40px;
+  .nav-link {
+    font-size: 16px;
   }
-
-  .logout:hover, .user:hover{
-    cursor: pointer;
-  }
+}
