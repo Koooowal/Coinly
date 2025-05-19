@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './leftbar.css';
+import './leftBar.css';
 import logo from '../../Assets/Logo/coinly.svg';
 import { Link } from 'react-router'; 
 import { FaUserCircle } from "react-icons/fa";
