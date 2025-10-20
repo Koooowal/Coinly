@@ -12,6 +12,10 @@ function LeftBar() {
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'Expenses', path: '/dashboard/expenses' },
     { name: 'Incomes', path: '/dashboard/incomes' },
+    { name: 'Budgets', path: '/dashboard/budgets' },
+    { name: 'Goals', path: '/dashboard/goals' },
+    { name: 'Reports', path: '/dashboard/reports' },
+    { name: 'Profile', path: '/dashboard/profile' },
   ];
   
   const handleClick = (path) => {

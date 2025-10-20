@@ -11,8 +11,7 @@ function WelcomePage() {
           <h1>COINLY</h1>
         </div>
       <div className="left-container">
-        <h1>Coinly</h1>
-        <h2>Supercharge your finance</h2>
+        <h1>Supercharge your finance</h1>
         <h3>
         Take control of your money with smart tracking, insightful analytics, and personalized recommendations. Coinly helps you build wealth, reduce debt, and achieve financial freedom—all in one intuitive platform.
         </h3>

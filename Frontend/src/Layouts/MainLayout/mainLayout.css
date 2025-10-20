@@ -28,6 +28,9 @@
 
 .left-bar-container {
   transition: transform 0.3s ease;
+  width: 15%; 
+  min-width: 280px;
+
 }
 
 @media (max-width: 768px) {
@@ -39,6 +42,7 @@
     z-index: 999;
     background-color: #ffffff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    width: 200px;
   }
   
   .left-bar-container.closed {
