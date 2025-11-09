@@ -8,7 +8,7 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import transactionRoutes from './routes/transactionRoutes.js';
 import budgetRoutes from './routes/budgetRoutes.js';
 import savingsRoutes from './routes/savingsRoutes.js';
-import reportRoutes from './routes/reportRoutes.js';
+import reportsRoutes from './routes/reportRoutes.js';
 
 dotenv.config({quiet: true});
 const router = express.Router();
@@ -20,7 +20,7 @@ router.use('/categories', categoryRoutes);
 router.use('/transactions', transactionRoutes);
 router.use('/budgets', budgetRoutes);
 router.use('/savings', savingsRoutes);
-router.use('/reports', reportRoutes);
+router.use('/reports', reportsRoutes);
 
 const app = express();
 app.use(express.json());
