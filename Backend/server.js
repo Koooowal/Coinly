@@ -8,28 +8,30 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import transactionRoutes from './routes/transactionRoutes.js';
 import budgetRoutes from './routes/budgetRoutes.js';
 import savingsRoutes from './routes/savingsRoutes.js';
-import reportsRoutes from './routes/reportRoutes.js';
+import reportsRoutes from './routes/reportsRoutes.js';
 
 dotenv.config({quiet: true});
-const router = express.Router();
-
-router.use('/auth', authRoutes);
-router.use('/users', userRoutes);
-router.use('/accounts', accountRoutes);
-router.use('/categories', categoryRoutes);
-router.use('/transactions', transactionRoutes);
-router.use('/budgets', budgetRoutes);
-router.use('/savings', savingsRoutes);
-router.use('/reports', reportsRoutes);
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/accounts', accountRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/budgets', budgetRoutes);
+app.use('/api/savings', savingsRoutes);
+app.use('/api/reports', reportsRoutes);
+
+
 
 const PORT = process.env.PORT || 3000;
 

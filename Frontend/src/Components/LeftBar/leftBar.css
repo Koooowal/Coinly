@@ -15,6 +15,8 @@
   display: flex;
   flex-direction: column;
   padding-left: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .title {
@@ -24,11 +26,13 @@
   font-family: "Inter", sans-serif;
   font-size: 24px;
   font-weight: 600;
+  padding-right: 14px;
 }
 
 .title img {
   width: 60px;
   height: 60px;
+  flex-shrink: 0;
 }
 
 .title h2 {
@@ -44,6 +48,7 @@
       3px  0px 0 rgb(255, 213, 0),
       0px -3px 0 rgb(255, 213, 0),
       0px  3px 0 rgb(255, 213, 0);
+  white-space: nowrap;
 }
 
 .nav {
@@ -64,12 +69,18 @@
   margin-top: 12px;
   border-radius: 12px;
   padding: 8px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.1s ease;
   text-decoration: none;
-  text-align:left;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover {
+  background-color: #444444;
+  transform: translateX(4px);
+}
+
+.nav-link.active {
   background-color: #444444;
 }
 
@@ -79,28 +90,54 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap:10px;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 20px;
+  border-top: 1px solid #333;
+  padding-top: 16px;
+  flex-shrink: 0;
 }
 
-.user-details{
+.user-details {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   color: rgb(255, 213, 0);
+  overflow: hidden;
 }
 
-.user svg, .logout svg {
+.user-details h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 18px;
+}
+
+.user svg,
+.logout svg {
   width: 32px;
   height: 32px;
   color: rgb(255, 213, 0);
+  flex-shrink: 0;
 }
 
 .logout {
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.logout:hover {
+  background-color: #333;
+  transform: scale(1.1);
+}
+
+.logout:active {
+  transform: scale(0.95);
 }
 
 .user:hover {
@@ -108,11 +145,11 @@
 }
 
 @media (max-width: 1240px) {
-  
-  .title h2{
+  .title h2 {
     font-size: 38px;
+    letter-spacing: 3px;
   }
-  
+
   .title img {
     width: 50px;
     height: 50px;
@@ -121,24 +158,188 @@
   .nav-link {
     font-size: 20px;
   }
-
 }
 
 @media (max-width: 1024px) {
   .left-bar {
     min-width: 200px;
   }
-  
-  .title h2{
-    font-size: 38px;
+
+  .title h2 {
+    font-size: 36px;
+    letter-spacing: 2px;
   }
-  
+
   .title img {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
   }
 
   .nav-link {
-    font-size: 20px;
+    font-size: 18px;
+    padding: 7px;
+  }
+
+  .user-details h3 {
+    font-size: 16px;
+  }
+
+  .user svg,
+  .logout svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-bar {
+    padding: 12px 0;
+  }
+
+  .main {
+    padding-left: 12px;
+  }
+
+  .title {
+    padding-right: 12px;
+  }
+
+  .title h2 {
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+
+  .title img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav {
+    margin-top: 14px;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  .user {
+    padding: 12px 12px 0 12px;
+    margin-bottom: 16px;
+  }
+
+  .user-details h3 {
+    font-size: 15px;
+  }
+
+  .user svg,
+  .logout svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-bar {
+    padding: 10px 0;
+  }
+
+  .main {
+    padding-left: 10px;
+  }
+
+  .title {
+    padding-right: 10px;
+    gap: 8px;
+  }
+
+  .title h2 {
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .title img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav {
+    width: 90%;
+    margin-top: 12px;
+  }
+
+  .nav-link {
+    font-size: 16px;
+    padding: 7px;
+    margin-top: 8px;
+    border-radius: 10px;
+  }
+
+  .user {
+    padding: 10px 10px 0 10px;
+    margin-bottom: 12px;
+  }
+
+  .user-details {
+    gap: 8px;
+  }
+
+  .user-details h3 {
+    font-size: 14px;
+  }
+
+  .user svg,
+  .logout svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .logout {
+    padding: 6px;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .left-bar {
+    padding: 8px 0;
+  }
+
+  .title {
+    gap: 6px;
+  }
+
+  .title h2 {
+    font-size: 24px;
+  }
+
+  .title img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nav {
+    margin-top: 8px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    padding: 6px;
+    margin-top: 6px;
+  }
+
+  .user {
+    padding: 8px 10px 0 10px;
+    margin-bottom: 10px;
+  }
+
+  .user-details h3 {
+    font-size: 13px;
+  }
+
+  .user svg,
+  .logout svg {
+    width: 22px;
+    height: 22px;
   }
 }

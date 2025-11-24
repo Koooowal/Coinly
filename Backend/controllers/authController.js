@@ -1,5 +1,6 @@
 import * as authService from '../services/authService.js';
 import { generateToken } from '../utils/jwt.js';
+import { formatResponse } from '../utils/responseFormatter.js';
 
 export const register = async (req, res, next) => {
   try {

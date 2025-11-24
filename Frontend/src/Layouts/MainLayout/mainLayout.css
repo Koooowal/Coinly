@@ -3,11 +3,14 @@
   width: 100%;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .content {
   display: flex;
   flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .menu-icon {
@@ -16,44 +19,121 @@
   right: 20px;
   z-index: 1000;
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: rgb(255, 213, 0);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
+  width: 50px;
+  height: 50px;
+  display: none;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(255, 213, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.menu-icon:hover {
+  background-color: rgb(235, 193, 0);
+  transform: scale(1.05);
+}
+
+.menu-icon:active {
+  transform: scale(0.95);
+}
+
+.menu-icon svg {
+  color: #1b1b1b;
 }
 
 .left-bar-container {
   transition: transform 0.3s ease;
-  width: 15%; 
+  width: 280px;
   min-width: 280px;
+  height: 100vh;
+  position: relative;
+}
 
+@media (max-width: 1024px) {
+  .left-bar-container {
+    width: 240px;
+    min-width: 240px;
+  }
 }
 
 @media (max-width: 768px) {
+  .menu-icon {
+    display: flex;
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
+
   .left-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     z-index: 999;
-    background-color: #ffffff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    width: 200px;
+    background-color: #1b1b1b;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+    width: 260px;
+    min-width: 260px;
   }
-  
+
   .left-bar-container.closed {
     transform: translateX(-100%);
   }
-  
+
   .left-bar-container.open {
     transform: translateX(0);
   }
-  
+
   .content {
     width: 100%;
+  }
+  .main-layout::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .main-layout.menu-open::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-icon {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .left-bar-container {
+    width: 240px;
+    min-width: 240px;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .menu-icon {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .left-bar-container {
+    width: 220px;
+    min-width: 220px;
   }
 }

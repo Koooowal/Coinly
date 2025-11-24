@@ -1,4 +1,4 @@
-import { db } from '../config/db.js';
+import { db } from '../database/db.js';
 import { promisify } from 'util';
 
 const query = promisify(db.query).bind(db);

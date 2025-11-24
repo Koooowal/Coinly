@@ -1,11 +1,7 @@
-import { db } from '../config/db.js';
+import { db } from '../database/db.js';
 import { promisify } from 'util';
 
 const query = promisify(db.query).bind(db);
-
-// ========================================
-// CELE OSZCZĘDNOŚCIOWE
-// ========================================
 
 export const getSavingsGoals = async (userId) => {
   const sql = `
@@ -139,10 +135,6 @@ export const addDepositToGoal = async (userId, goalId, data) => {
 
   return { success: true, message: 'Wpłata dodana pomyślnie' };
 };
-
-// ========================================
-// KONTA OSZCZĘDNOŚCIOWE
-// ========================================
 
 export const getSavingsAccounts = async (userId) => {
   const sql = `
