@@ -121,19 +121,38 @@ export const deleteSavingsGoal = async (userId, goalId) => {
   return { success: true };
 };
 
-export const addDepositToGoal = async (userId, goalId, data) => {
-  const sql = 'CALL sp_add_to_savings_goal(?, ?, ?, ?, ?, ?)';
-  
-  await query(sql, [
-    userId,
-    goalId,
-    data.savings_account_id,
-    data.amount,
-    data.description,
-    data.date
-  ]);
+export const addDepositToGoal = async (userId, goalId, depositData) => {
+  try {
+    const { amount } = depositData;
+    
+    console.log('Adding deposit:', { userId, goalId, amount });
+    
+    const checkSql = 'SELECT goal_id, user_id, current_amount, target_amount FROM savings_goals WHERE goal_id = ? AND user_id = ?';
+    const goals = await query(checkSql, [parseInt(goalId), userId]);
 
-  return { success: true, message: 'Wpłata dodana pomyślnie' };
+    if (goals.length === 0) {
+      throw new Error('Goal not found or does not belong to you');
+    }
+
+    const goal = goals[0];
+    const newAmount = parseFloat(goal.current_amount) + parseFloat(amount);
+    const newStatus = newAmount >= parseFloat(goal.target_amount) ? 'completed' : 'active';
+
+    const updateSql = 'UPDATE savings_goals SET current_amount = ?, status = ? WHERE goal_id = ?';
+    await query(updateSql, [newAmount, newStatus, parseInt(goalId)]);
+    
+    console.log('Deposit successful! New amount:', newAmount);
+    
+    return { 
+      success: true,
+      new_amount: newAmount,
+      status: newStatus
+    };
+    
+  } catch (err) {
+    console.error('Deposit error:', err);
+    throw err;
+  }
 };
 
 export const getSavingsAccounts = async (userId) => {

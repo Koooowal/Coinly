@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// Interceptor - dodaje token do każdego requesta
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -23,7 +22,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Interceptor - obsługuje błędy (np. 401 Unauthorized)
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {

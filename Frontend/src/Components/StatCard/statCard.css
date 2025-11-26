@@ -1,0 +1,141 @@
+.stat-card {
+  background: linear-gradient(135deg, #1b1b1b 0%, #2a2a2a 100%);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.stat-card-yellow {
+  border-color: rgba(255, 213, 0, 0.3);
+}
+
+.stat-card-yellow:hover {
+  border-color: rgba(255, 213, 0, 0.6);
+}
+
+.stat-card-green {
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.stat-card-green:hover {
+  border-color: rgba(76, 175, 80, 0.6);
+}
+
+.stat-card-red {
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.stat-card-red:hover {
+  border-color: rgba(244, 67, 54, 0.6);
+}
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-card-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.stat-card-yellow .stat-card-icon {
+  color: rgb(255, 213, 0);
+}
+
+.stat-card-green .stat-card-icon {
+  color: #4CAF50;
+}
+
+.stat-card-red .stat-card-icon {
+  color: #F44336;
+}
+
+.stat-card-title {
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.stat-card-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.stat-card-currency {
+  font-size: 18px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.stat-card-trend {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stat-card-trend.positive {
+  color: #4CAF50;
+}
+
+.stat-card-trend.negative {
+  color: #F44336;
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: 20px;
+  }
+
+  .stat-card-icon {
+    font-size: 28px;
+  }
+
+  .stat-card-title {
+    font-size: 13px;
+  }
+
+  .stat-card-value {
+    font-size: 30px;
+  }
+
+  .stat-card-currency {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card-icon {
+    font-size: 24px;
+  }
+
+  .stat-card-title {
+    font-size: 12px;
+  }
+
+  .stat-card-value {
+    font-size: 26px;
+  }
+
+  .stat-card-currency {
+    font-size: 14px;
+  }
+}

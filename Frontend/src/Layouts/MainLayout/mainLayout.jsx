@@ -34,19 +34,16 @@ function MainLayout() {
 
   return (
     <div className={`main-layout ${isMenuOpen ? 'menu-open' : ''}`}>
-      {/* Menu Icon (tylko mobile) */}
       {isMobile && (
         <div className="menu-icon" onClick={toggleMenu}>
           <IoMenu size={24} />
         </div>
       )}
 
-      {/* Left Bar */}
       <div className={`left-bar-container ${isMobile ? (isMenuOpen ? 'open' : 'closed') : ''}`}>
         <LeftBar onLinkClick={closeMenu} />
       </div>
 
-      {/* Overlay (tylko mobile gdy menu otwarte) */}
       {isMobile && isMenuOpen && (
         <div 
           className="menu-overlay" 
@@ -61,8 +58,6 @@ function MainLayout() {
           }}
         />
       )}
-
-      {/* Content */}
       <div className='content'>
         <Outlet />
       </div>

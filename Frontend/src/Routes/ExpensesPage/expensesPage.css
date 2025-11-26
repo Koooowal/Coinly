@@ -1,10 +1,507 @@
-.expenses-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
+.page {
   width: 100%;
-  height: 100vh;
-  background-color:rgb(36, 36, 36);
-  color: rgb(255, 213, 0);
+  min-height: 100vh;
+  background-color: #242424;
+  color: white;
+  padding: 40px;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  color: #FFD500;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-text {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-primary {
+  background-color: #FFD500;
+  color: #1b1b1b;
+}
+
+.btn-primary:hover {
+  background-color: #EBC100;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #333;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #444;
+}
+
+.btn-text {
+  background: none;
+  color: #888;
+  padding: 8px 16px;
+}
+
+.btn-text:hover {
+  color: white;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.2s ease;
+}
+
+.btn-icon:hover {
+  color: #FFD500;
+}
+
+.btn-icon.delete:hover {
+  color: #F44336;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  background-color: #1b1b1b;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid #333;
+}
+
+.filters input,
+.filters select {
+  padding: 10px 14px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #242424;
+  color: white;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: #FFD500;
+}
+
+.expenses-list {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #333;
+}
+
+.expenses-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.expenses-list thead {
+  border-bottom: 2px solid #333;
+}
+
+.expenses-list th {
+  color: #888;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.expenses-list tbody tr {
+  border-bottom: 1px solid #2a2a2a;
+  transition: background-color 0.2s ease;
+}
+
+.expenses-list tbody tr:hover {
+  background-color: #242424;
+}
+
+.expenses-list td {
+  padding: 16px;
+  color: white;
+  font-size: 14px;
+}
+
+.expenses-list tfoot {
+  border-top: 2px solid #333;
+  background-color: #242424;
+}
+
+.expenses-list tfoot td {
+  padding: 16px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.amount-expense {
+  color: #F44336;
+  font-weight: 700;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: #1b1b1b;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #333;
+}
+
+.modal-content h2 {
+  color: #FFD500;
+  font-size: 24px;
+  margin: 0 0 24px 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 14px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #242424;
+  color: white;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #FFD500;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.transfer-arrow {
+  text-align: center;
+  font-size: 32px;
+  color: #FFD500;
+  margin: 16px 0;
+}
+
+.info-box {
+  background-color: #242424;
+  border-left: 4px solid #FFD500;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.info-box strong {
+  color: #FFD500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.info-box {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  border: 1px solid #333;
+}
+
+.empty-state p {
+  color: #888;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+}
+
+.recurring-section {
+  margin-top: 40px;
+}
+
+.recurring-section h2 {
+  color: #FFD500;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recurring-list {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #333;
+}
+
+.recurring-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recurring-list thead {
+  border-bottom: 2px solid #333;
+}
+
+.recurring-list th {
+  color: #888;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.recurring-list tbody tr {
+  border-bottom: 1px solid #2a2a2a;
+  transition: background-color 0.2s ease;
+}
+
+.recurring-list tbody tr:hover {
+  background-color: #242424;
+}
+
+.recurring-list tbody tr.inactive {
+  opacity: 0.5;
+}
+
+.recurring-list td {
+  padding: 16px;
+  color: white;
+  font-size: 14px;
+}
+
+.badge-frequency {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #FFD500;
+  color: #1b1b1b;
+  text-transform: capitalize;
+}
+
+.badge-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-status.active {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.badge-status.inactive {
+  background-color: rgba(158, 158, 158, 0.2);
+  color: #9E9E9E;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #888;
+  font-size: 16px;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1b1b1b;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 20px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .expenses-list {
+    overflow-x: auto;
+  }
+
+  .expenses-list table {
+    min-width: 600px;
+  }
+
+  .recurring-list {
+    overflow-x: auto;
+  }
+
+  .recurring-list table {
+    min-width: 800px;
+  }
+
+  .modal-content {
+    padding: 24px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+.next-exec {
+  font-size: 13px;
+  color: #888;
+}
+
+.next-exec.today {
+  color: #FFD500;
+  font-weight: 700;
 }

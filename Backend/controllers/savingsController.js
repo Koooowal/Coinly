@@ -94,18 +94,13 @@ export const depositToGoal = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const goalId = req.params.id;
-    const { savings_account_id, amount, description, date } = req.body;
+    const { amount } = req.body; 
 
     if (!amount || amount <= 0) {
       return res.status(400).json(formatResponse(false, 'Kwota musi być większa od 0'));
     }
 
-    const result = await savingsService.addDepositToGoal(userId, goalId, {
-      savings_account_id,
-      amount,
-      description: description || 'Wpłata na cel oszczędnościowy',
-      date: date || new Date().toISOString().split('T')[0]
-    });
+    const result = await savingsService.addDepositToGoal(userId, goalId, { amount });
 
     res.json(formatResponse(true, 'Wpłata dodana pomyślnie', result));
   } catch (error) {

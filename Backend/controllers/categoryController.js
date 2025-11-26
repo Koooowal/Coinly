@@ -4,7 +4,7 @@ import { formatResponse } from '../utils/responseFormatter.js';
 export const getAllCategories = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const type = req.query.type; // 'income' lub 'expense'
+    const type = req.query.type; 
 
     const categories = await categoryService.getCategories(userId, type);
 

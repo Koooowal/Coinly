@@ -1,10 +1,523 @@
-.budget-page {
+.budget-page h1 {
+  font-size: 36px;
+  color: #FFD500;
+  margin: 0;
+}
+
+.budget-page p {
+  color: #888;
+  margin: 8px 0 0 0;
+}
+
+.page-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.budgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.budget-card {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.budget-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.budget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.budget-header h3 {
+  font-size: 18px;
+  color: white;
+  margin: 0 0 6px 0;
+}
+
+.budget-status {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.budget-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.budget-amount {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.amount-spent,
+.amount-limit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.amount-spent .label,
+.amount-limit .label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.amount-spent .value,
+.amount-limit .value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+.amount-limit .value {
+  color: white;
+}
+
+.budget-progress {
+  display: flex;
   align-items: center;
-  font-size: 32px;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background-color: #333;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFD500;
+  min-width: 50px;
+  text-align: right;
+}
+
+.budget-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid #333;
+}
+
+.budget-remaining {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.budget-remaining .label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.budget-remaining .value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.budget-period {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.period-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #333;
+  color: #FFD500;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dates {
+  font-size: 12px;
+  color: #666;
+}
+
+.btn-primary {
+  padding: 12px 20px;
+  background-color: #FFD500;
+  color: #1b1b1b;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-primary:hover {
+  background-color: #EBC100;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  padding: 12px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-secondary:hover {
+  background-color: #555;
+}
+
+.btn-danger {
+  padding: 12px 20px;
+  background-color: #F44336;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-danger:hover {
+  background-color: #da190b;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  color: white;
+  background-color: #333;
+}
+
+.btn-icon.btn-danger:hover {
+  color: #F44336;
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-box {
+  background-color: #1b1b1b;
+  border-radius: 16px;
   width: 100%;
-  height: 100vh;
-  background-color:rgb(36, 36, 36);
-  color: rgb(255, 213, 0);
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-box.small {
+  max-width: 450px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #333;
+}
+
+.modal-header h2 {
+  color: #FFD500;
+  font-size: 20px;
+  margin: 0;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.btn-close:hover {
+  color: white;
+}
+
+.modal-box form {
+  padding: 24px;
+}
+
+.modal-box > p {
+  padding: 0 24px;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+.delete-info {
+  padding: 0 24px;
+  margin: 16px 0;
+  background-color: #242424;
+  border-radius: 8px;
+}
+
+.delete-info p {
+  padding: 12px 0;
+  margin: 0;
+  color: #ccc;
+  border-bottom: 1px solid #333;
+}
+
+.delete-info p:last-child {
+  border-bottom: none;
+}
+
+.delete-info strong {
+  color: #FFD500;
+  margin-right: 8px;
+}
+
+.warning {
+  color: #F44336 !important;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  color: #FFD500;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 14px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #242424;
+  color: white;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #FFD500;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 24px;
+  border-top: 1px solid #333;
+}
+
+.empty {
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.empty p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #888;
+  font-size: 16px;
+}
+
+.period-hint {
+  display: block;
+  margin-top: 6px;
+  color: #888;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.readonly-input {
+  background-color: #1a1a1a !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.readonly-input:focus {
+  border-color: #444 !important;
+}
+
+.date-info {
+  margin: 16px 0;
+  padding: 12px;
+  background-color: #242424;
+  border-left: 3px solid #FFD500;
+  border-radius: 6px;
+}
+
+.date-info small {
+  color: #ccc;
+  font-size: 13px;
+  display: block;
+  line-height: 1.5;
+}
+
+.date-info strong {
+  color: #FFD500;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .budgets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .budget-page h1 {
+    font-size: 28px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .page-header button {
+    width: 100%;
+  }
+
+  .budgets-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .budget-card {
+    padding: 16px;
+  }
+
+  .budget-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .budget-period {
+    align-items: flex-start;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-box {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .budget-amount {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .budget-progress {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-text {
+    text-align: center;
+  }
 }
