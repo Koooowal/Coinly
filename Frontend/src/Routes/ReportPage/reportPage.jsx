@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './reportPage.css';
 import axios from '../../api/axios';
 import { FaCalendar, FaChartPie, FaExchangeAlt, FaDownload, FaUpload, FaFileExport } from 'react-icons/fa';
+import { showSuccess, showError, showInfo, showConfirm } from '../../utils/toast';
 
 function ReportPage() {
   const [activeTab, setActiveTab] = useState('monthly');
@@ -23,14 +24,12 @@ function ReportPage() {
     type: 'expense'
   });
 
-  // Income vs Expenses
   const [incomeVsExpenses, setIncomeVsExpenses] = useState(null);
   const [incomeVsFilters, setIncomeVsFilters] = useState({
     start_date: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0],
     end_date: new Date().toISOString().split('T')[0]
   });
 
-  // Import/Export state
   const [showExportModal, setShowExportModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [importFile, setImportFile] = useState(null);
@@ -107,7 +106,6 @@ function ReportPage() {
     }
   };
 
-  // Export functions
   const handleExportMonthly = async (format) => {
     try {
       const url = `/export/monthly?year=${monthlyDate.year}&month=${monthlyDate.month}&format=${format}`;
@@ -125,7 +123,7 @@ function ReportPage() {
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
 
-      alert('Export successful!');
+      showSuccess('Export successful!');
       setShowExportModal(false);
     } catch (err) {
       alert('Export failed: ' + (err.response?.data?.message || err.message));
@@ -149,7 +147,7 @@ function ReportPage() {
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
 
-      alert('Export successful!');
+      showSuccess('Export successful!'); 
       setShowExportModal(false);
     } catch (err) {
       alert('Export failed: ' + (err.response?.data?.message || err.message));
@@ -180,7 +178,6 @@ function ReportPage() {
     }
   };
 
-  // Import functions
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -191,7 +188,7 @@ function ReportPage() {
 
   const handlePreviewImport = async () => {
     if (!importFile) {
-      alert('Please select a file first');
+      showError('Please select a file first');
       return;
     }
 
@@ -210,7 +207,7 @@ function ReportPage() {
         setImportPreview(response.data.data);
       }
     } catch (err) {
-      alert('Preview failed: ' + (err.response?.data?.message || err.message));
+      showError('Preview failed: ' + (err.response?.data?.message || err.message));  
     } finally {
       setLoading(false);
     }
@@ -218,7 +215,7 @@ function ReportPage() {
 
   const handleImport = async () => {
     if (!importFile) {
-      alert('Please select a file first');
+      showError('Please select a file first');
       return;
     }
 
@@ -238,12 +235,11 @@ function ReportPage() {
       });
 
       if (response.data.success) {
-        alert(`Import successful! Imported: ${response.data.data.imported}, Failed: ${response.data.data.failed}`);
+        showSuccess(`Import successful! Imported: ${response.data.data.imported}, Failed: ${response.data.data.failed}`);
         setShowImportModal(false);
         setImportFile(null);
         setImportPreview(null);
         
-        // Refresh current report
         if (activeTab === 'monthly') fetchMonthlyReport();
         if (activeTab === 'yearly') fetchYearlyReport();
         if (activeTab === 'category') fetchCategoryReport();
@@ -253,9 +249,9 @@ function ReportPage() {
       const errorMsg = err.response?.data?.message || err.message;
       const errors = err.response?.data?.data?.errors;
       if (errors && errors.length > 0) {
-        alert(`Import failed: ${errorMsg}\n\nFirst 5 errors:\n${errors.slice(0, 5).join('\n')}`);
+        showError(`Import failed: ${errorMsg}\n\nFirst 5 errors:\n${errors.slice(0, 5).join('\n')}`);  // ← ZMIENIONO
       } else {
-        alert('Import failed: ' + errorMsg);
+        showError('Import failed: ' + errorMsg);
       }
     } finally {
       setLoading(false);
@@ -279,7 +275,7 @@ function ReportPage() {
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
     } catch (err) {
-      alert('Download failed: ' + err.message);
+       showError('Download failed: ' + err.message);
     }
   };
 
@@ -604,7 +600,6 @@ function ReportPage() {
         </div>
       )}
 
-      {/* Export Modal */}
       {showExportModal && (
         <div className="modal-overlay" onClick={() => setShowExportModal(false)}>
           <div className="modal-content export-modal" onClick={(e) => e.stopPropagation()}>
@@ -683,7 +678,6 @@ function ReportPage() {
         </div>
       )}
 
-      {/* Import Modal */}
       {showImportModal && (
         <div className="modal-overlay" onClick={() => setShowImportModal(false)}>
           <div className="modal-content import-modal" onClick={(e) => e.stopPropagation()}>

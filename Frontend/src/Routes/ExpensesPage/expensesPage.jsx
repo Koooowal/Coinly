@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './expensesPage.css';
 import axios from '../../api/axios';
 import { FaPlus, FaEdit, FaTrash, FaFilter, FaExchangeAlt, FaRedoAlt } from 'react-icons/fa';
+import { showSuccess, showError, showWarning, showConfirm, showBudgetAlert } from '../../utils/toast';
 
 function ExpensesPage() {
   const [transactions, setTransactions] = useState([]);
@@ -76,13 +77,12 @@ function ExpensesPage() {
       setCategories(cats.data.data || []);
       setAccounts(accs.data.data || []);
     } catch (err) {
-      console.error(err);
+      showError('Error fetching data');
     } finally {
       setLoading(false);
     }
   };
 
-  // Expense Modal Functions
   const openModal = (transaction = null) => {
     if (transaction) {
       setEditingId(transaction.transaction_id);
@@ -114,31 +114,42 @@ function ExpensesPage() {
     try {
       const data = { ...form, type: 'expense', amount: parseFloat(form.amount) };
       
+      let response;
       if (editingId) {
-        await axios.put(`/transactions/${editingId}`, data);
+        response = await axios.put(`/transactions/${editingId}`, data);
       } else {
-        await axios.post('/transactions', data);
+        response = await axios.post('/transactions', data);
       }
       
+      showSuccess(editingId ? 'Expense updated successfully!' : 'Expense added successfully!');
       setShowModal(false);
       fetchData();
+
+      const budgetWarnings = response.data?.data?.budgetWarnings || [];
+      if (budgetWarnings.length > 0) {
+        setTimeout(() => {
+          budgetWarnings.forEach(warning => {
+            showBudgetAlert(warning.message, warning.type);
+          });
+        }, 500);
+      }
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving transaction');
+      showError(err.response?.data?.message || 'Error saving transaction');
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this expense?')) return;
-    
-    try {
-      await axios.delete(`/transactions/${id}`);
-      fetchData();
-    } catch (err) {
-      alert('Error deleting transaction');
-    }
+    showConfirm('Are you sure you want to delete this expense?', async () => {
+      try {
+        await axios.delete(`/transactions/${id}`);
+        showSuccess('Expense deleted successfully!');
+        fetchData();
+      } catch (err) {
+        showError('Error deleting transaction');
+      }
+    });
   };
 
-  // Recurring Modal Functions
   const openRecurringModal = (recurring = null) => {
     if (recurring) {
       setEditingRecurringId(recurring.recurring_id);
@@ -182,22 +193,24 @@ function ExpensesPage() {
         await axios.post('/recurring', data);
       }
       
+      showSuccess(editingRecurringId ? 'Recurring transaction updated!' : 'Recurring transaction created!');
       setShowRecurringModal(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving recurring transaction');
+      showError(err.response?.data?.message || 'Error saving recurring transaction');
     }
   };
 
   const handleRecurringDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this recurring transaction?')) return;
-    
-    try {
-      await axios.delete(`/recurring/${id}`);
-      fetchData();
-    } catch (err) {
-      alert('Error deleting recurring transaction');
-    }
+    showConfirm('Are you sure you want to delete this recurring transaction?', async () => {
+      try {
+        await axios.delete(`/recurring/${id}`);
+        showSuccess('Recurring transaction deleted successfully!');
+        fetchData();
+      } catch (err) {
+        showError('Error deleting recurring transaction');
+      }
+    });
   };
 
   const handleToggleActive = async (id, currentStatus) => {
@@ -205,11 +218,10 @@ function ExpensesPage() {
       await axios.patch(`/recurring/${id}/toggle`, { is_active: !currentStatus });
       fetchData();
     } catch (err) {
-      alert('Error toggling recurring transaction status');
+      showError('Error toggling recurring transaction status');
     }
   };
 
-  // Transfer Modal Functions
   const openTransferModal = (transfer = null) => {
     if (transfer) {
       setEditingTransferId(transfer.transaction_id);
@@ -249,25 +261,26 @@ function ExpensesPage() {
         await axios.post('/transactions', data);
       }
       
+      showSuccess('Transfer completed successfully!');
       setShowTransferModal(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving transfer');
+      showError(err.response?.data?.message || 'Error saving transfer');
     }
   };
 
   const handleTransferDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this transfer?')) return;
-    
-    try {
-      await axios.delete(`/transactions/${id}`);
-      fetchData();
-    } catch (err) {
-      alert('Error deleting transfer');
-    }
+    showConfirm('Are you sure you want to delete this transfer?', async () => {
+      try {
+        await axios.delete(`/transactions/${id}`);
+        showSuccess('Transfer deleted successfully!');
+        fetchData();
+      } catch (err) {
+        showError('Error deleting transfer');
+      }
+    });
   };
 
-  // Utility Functions
   const formatCurrency = (val) => {
     return new Intl.NumberFormat('pl-PL', { minimumFractionDigits: 2 }).format(val || 0);
   };
@@ -414,7 +427,6 @@ function ExpensesPage() {
         </div>
       )}
 
-      {/* Recurring Transactions Section */}
       <div className="recurring-section">
         <h2>
           <FaRedoAlt /> Recurring Expenses
@@ -487,7 +499,6 @@ function ExpensesPage() {
         )}
       </div>
 
-      {/* Transfers Section */}
       <div className="recurring-section">
         <h2>
           <FaExchangeAlt /> Transfers Between Accounts
@@ -539,7 +550,6 @@ function ExpensesPage() {
         )}
       </div>
 
-      {/* Expense Modal */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -609,7 +619,6 @@ function ExpensesPage() {
         </div>
       )}
 
-      {/* Recurring Modal */}
       {showRecurringModal && (
         <div className="modal-overlay" onClick={() => setShowRecurringModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -690,7 +699,6 @@ function ExpensesPage() {
         </div>
       )}
 
-      {/* Transfer Modal */}
       {showTransferModal && (
         <div className="modal-overlay" onClick={() => setShowTransferModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

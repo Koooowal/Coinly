@@ -1,5 +1,6 @@
 import { db } from '../database/db.js';
 import { promisify } from 'util';
+import { checkBudgetWarnings } from './budgetService.js';
 
 const query = promisify(db.query).bind(db);
 
@@ -82,7 +83,16 @@ export const addTransaction = async (userId, data) => {
   
   await query(sql, params);
   
-  return { success: true, message: 'Transakcja dodana pomyślnie' };
+  let budgetWarnings = [];
+  if (data.type === 'expense' && data.category_id) {
+    budgetWarnings = await checkBudgetWarnings(userId, data.category_id, data.date);
+  }
+  
+  return { 
+    success: true, 
+    message: 'Transakcja dodana pomyślnie',
+    budgetWarnings: budgetWarnings
+  };
 };
 
 export const updateTransaction = async (userId, transactionId, data) => {

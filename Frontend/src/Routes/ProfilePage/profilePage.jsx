@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './profilePage.css';
 import axios from '../../api/axios';
 import { FaPlus, FaEdit, FaTrash, FaUser, FaCog, FaWallet, FaTag, FaTimes } from 'react-icons/fa';
+import { showSuccess, showError } from '../../utils/toast';
+import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState('profile');
   const [loading, setLoading] = useState(true);
+  const { updateTheme } = useTheme();
+  const { updateUser } = useAuth();
   
   const [profile, setProfile] = useState({ email: '', username: '' });
   const [preferences, setPreferences] = useState({ currency: 'PLN', theme: 'dark', enable_alerts: true });
@@ -13,7 +18,7 @@ function ProfilePage() {
   const [accounts, setAccounts] = useState([]);
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [editingAccount, setEditingAccount] = useState(null);
-  const [accountForm, setAccountForm] = useState({ name: '', type: 'checking', balance: '', currency: 'PLN' });
+  const [accountForm, setAccountForm] = useState({ name: '', type: 'checking', balance: '' });
    
   const [categories, setCategories] = useState([]);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -42,7 +47,7 @@ function ProfilePage() {
       if (accountsRes.data.success) setAccounts(accountsRes.data.data);
       if (categoriesRes.data.success) setCategories(categoriesRes.data.data);
     } catch (err) {
-      console.error(err);
+      showError('Error loading data');
     } finally {
       setLoading(false);
     }
@@ -52,9 +57,10 @@ function ProfilePage() {
     e.preventDefault();
     try {
       await axios.put('/users/profile', profile);
-      alert('Profile updated successfully');
+      updateUser({ email: profile.email, username: profile.username });
+      showSuccess('Profile updated successfully!');
     } catch (err) {
-      alert('Error updating profile');
+      showError('Error updating profile');
     }
   };
 
@@ -62,9 +68,10 @@ function ProfilePage() {
     e.preventDefault();
     try {
       await axios.put('/users/preferences', preferences);
-      alert('Preferences updated successfully');
+      updateTheme(preferences.theme);
+      showSuccess('Preferences updated successfully!');
     } catch (err) {
-      alert('Error updating preferences');
+      showError('Error updating preferences');
     }
   };
 
@@ -74,12 +81,11 @@ function ProfilePage() {
       setAccountForm({
         name: account.name,
         type: account.type,
-        balance: account.balance,
-        currency: account.currency
+        balance: account.balance
       });
     } else {
       setEditingAccount(null);
-      setAccountForm({ name: '', type: 'checking', balance: '', currency: 'PLN' });
+      setAccountForm({ name: '', type: 'checking', balance: '' });
     }
     setShowAccountModal(true);
   };
@@ -92,20 +98,22 @@ function ProfilePage() {
       } else {
         await axios.post('/accounts', accountForm);
       }
+      showSuccess(editingAccount ? 'Account updated successfully!' : 'Account created successfully!');
       setShowAccountModal(false);
       fetchData();
     } catch (err) {
-      alert('Error saving account');
+      showError('Error saving account');
     }
   };
 
   const handleDeleteAccount = async () => {
     try {
       await axios.delete(`/accounts/${deleteItem.account_id}`);
+      showSuccess('Account deleted successfully!');
       setShowDeleteModal(false);
       fetchData();
     } catch (err) {
-      alert('Error deleting account');
+      showError('Error deleting account');
     }
   };
 
@@ -133,10 +141,11 @@ function ProfilePage() {
       } else {
         await axios.post('/categories', categoryForm);
       }
+      showSuccess(editingCategory ? 'Category updated successfully!' : 'Category created successfully!');
       setShowCategoryModal(false);
       fetchData();
     } catch (err) {
-      alert('Error saving category');
+      showError('Error saving category');
     }
   };
 
@@ -225,8 +234,6 @@ function ProfilePage() {
                 onChange={(e) => setPreferences({ ...preferences, currency: e.target.value })}
               >
                 <option value="PLN">PLN (Polish Złoty)</option>
-                <option value="EUR">EUR (Euro)</option>
-                <option value="USD">USD (US Dollar)</option>
               </select>
             </div>
             <div className="form-group">
@@ -272,7 +279,7 @@ function ProfilePage() {
                   <div className="item-info">
                     <h3>{account.name}</h3>
                     <p className="item-detail">{account.type}</p>
-                    <p className="item-balance">{formatCurrency(account.balance)} {account.currency}</p>
+                    <p className="item-balance">{formatCurrency(account.balance)} PLN</p>
                   </div>
                   <div className="item-actions">
                     <button className="btn-icon" onClick={() => openAccountModal(account)}>
@@ -370,7 +377,7 @@ function ProfilePage() {
                 </select>
               </div>
               <div className="form-group">
-                <label>Balance *</label>
+                <label>Balance (PLN) *</label>
                 <input
                   type="number"
                   step="0.01"
@@ -378,17 +385,6 @@ function ProfilePage() {
                   onChange={(e) => setAccountForm({ ...accountForm, balance: e.target.value })}
                   required
                 />
-              </div>
-              <div className="form-group">
-                <label>Currency</label>
-                <select
-                  value={accountForm.currency}
-                  onChange={(e) => setAccountForm({ ...accountForm, currency: e.target.value })}
-                >
-                  <option value="PLN">PLN</option>
-                  <option value="EUR">EUR</option>
-                  <option value="USD">USD</option>
-                </select>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAccountModal(false)}>

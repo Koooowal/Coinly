@@ -1,14 +1,10 @@
-// exportService.js - Service for exporting data (FIXED VERSION)
-
 import { db } from '../database/db.js';
 import { promisify } from 'util';
 import ExcelJS from 'exceljs';
 
 const query = promisify(db.query).bind(db);
 
-/**
- * Get monthly transactions data
- */
+
 export const getMonthlyData = async (userId, year, month) => {
   const sql = `
     SELECT 
@@ -31,9 +27,7 @@ export const getMonthlyData = async (userId, year, month) => {
   return await query(sql, [userId, year, month]);
 };
 
-/**
- * Get yearly transactions data
- */
+
 export const getYearlyData = async (userId, year) => {
   const sql = `
     SELECT 
@@ -55,9 +49,7 @@ export const getYearlyData = async (userId, year) => {
   return await query(sql, [userId, year]);
 };
 
-/**
- * Get custom date range data
- */
+
 export const getRangeData = async (userId, startDate, endDate) => {
   const sql = `
     SELECT 
@@ -79,15 +71,12 @@ export const getRangeData = async (userId, startDate, endDate) => {
   return await query(sql, [userId, startDate, endDate]);
 };
 
-/**
- * Convert data to CSV format
- */
+
 export const convertToCSV = (data) => {
   if (!data || data.length === 0) {
     return 'No data available';
   }
 
-  // Headers
   const headers = [
     'date',
     'type',
@@ -98,9 +87,7 @@ export const convertToCSV = (data) => {
     'category'
   ];
 
-  // Rows
   const rows = data.map(row => {
-    // Convert date to string
     let dateStr = row.date;
     if (dateStr instanceof Date) {
       dateStr = dateStr.toISOString().split('T')[0];
@@ -112,7 +99,6 @@ export const convertToCSV = (data) => {
       dateStr = '';
     }
 
-    // Clean description (remove [AUTO] prefix, handle null)
     let desc = row.description || '';
     if (desc.startsWith('[AUTO]')) {
       desc = desc.replace('[AUTO] ', '');
@@ -129,11 +115,9 @@ export const convertToCSV = (data) => {
     ];
   });
 
-  // Combine headers and rows
   const csvContent = [
     headers.join(','),
     ...rows.map(row => row.map(cell => {
-      // Escape commas and quotes in cell values
       const cellStr = String(cell);
       if (cellStr.includes(',') || cellStr.includes('"') || cellStr.includes('\n')) {
         return `"${cellStr.replace(/"/g, '""')}"`;
@@ -145,17 +129,13 @@ export const convertToCSV = (data) => {
   return csvContent;
 };
 
-/**
- * Convert data to Excel format
- */
+
 export const convertToExcel = async (data, sheetName = 'Transactions') => {
   const workbook = new ExcelJS.Workbook();
   
-  // Clean sheet name - remove invalid characters
   const cleanSheetName = sheetName.replace(/[\*\?\:\/\\\[\]]/g, '_');
   const worksheet = workbook.addWorksheet(cleanSheetName);
 
-  // Define columns (simpler format for re-import)
   worksheet.columns = [
     { header: 'date', key: 'date', width: 12 },
     { header: 'type', key: 'type', width: 10 },
@@ -166,7 +146,6 @@ export const convertToExcel = async (data, sheetName = 'Transactions') => {
     { header: 'category', key: 'category', width: 20 }
   ];
 
-  // Style header row
   worksheet.getRow(1).font = { bold: true };
   worksheet.getRow(1).fill = {
     type: 'pattern',
@@ -175,9 +154,7 @@ export const convertToExcel = async (data, sheetName = 'Transactions') => {
   };
   worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
 
-  // Add data rows
   data.forEach(row => {
-    // Convert date to string
     let dateStr = row.date;
     if (dateStr instanceof Date) {
       dateStr = dateStr.toISOString().split('T')[0];
@@ -187,7 +164,6 @@ export const convertToExcel = async (data, sheetName = 'Transactions') => {
       dateStr = String(dateStr);
     }
 
-    // Clean description
     let desc = row.description || '';
     if (desc.startsWith('[AUTO]')) {
       desc = desc.replace('[AUTO] ', '');
@@ -203,32 +179,30 @@ export const convertToExcel = async (data, sheetName = 'Transactions') => {
       category: row.category_name || ''
     });
 
-    // Color code by type
     if (row.type === 'income') {
       addedRow.getCell('type').fill = {
         type: 'pattern',
         pattern: 'solid',
-        fgColor: { argb: 'C8E6C9' } // Light green
+        fgColor: { argb: 'C8E6C9' } 
       };
       addedRow.getCell('amount').font = { color: { argb: '4CAF50' } };
     } else if (row.type === 'expense') {
       addedRow.getCell('type').fill = {
         type: 'pattern',
         pattern: 'solid',
-        fgColor: { argb: 'FFCDD2' } // Light red
+        fgColor: { argb: 'FFCDD2' } 
       };
       addedRow.getCell('amount').font = { color: { argb: 'F44336' } };
     } else if (row.type === 'transfer') {
       addedRow.getCell('type').fill = {
         type: 'pattern',
         pattern: 'solid',
-        fgColor: { argb: 'FFF9C4' } // Light yellow
+        fgColor: { argb: 'FFF9C4' } 
       };
       addedRow.getCell('amount').font = { color: { argb: 'FFD500' } };
     }
   });
 
-  // Add totals row
   const totalIncome = data.filter(r => r.type === 'income').reduce((sum, r) => sum + parseFloat(r.amount), 0);
   const totalExpense = data.filter(r => r.type === 'expense').reduce((sum, r) => sum + parseFloat(r.amount), 0);
   const netBalance = totalIncome - totalExpense;
@@ -250,7 +224,6 @@ export const convertToExcel = async (data, sheetName = 'Transactions') => {
     fgColor: { argb: 'E0E0E0' }
   };
 
-  // Generate buffer
   const buffer = await workbook.xlsx.writeBuffer();
   return buffer;
 };

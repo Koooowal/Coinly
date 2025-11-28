@@ -1,11 +1,11 @@
 .goal-page h1 {
   font-size: 36px;
-  color: #FFD500;
+  color: var(--accent-primary);
   margin: 0;
 }
 
 .goal-page p {
-  color: #888;
+  color: var(--text-muted);
   margin: 8px 0 0 0;
 }
 
@@ -23,15 +23,15 @@
 }
 
 .goal-card {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   border-radius: 12px;
   padding: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
 }
 
 .goal-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .goal-header {
@@ -43,7 +43,7 @@
 
 .goal-header h3 {
   font-size: 18px;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 6px 0;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .goal-description {
-  color: #888;
+  color: var(--text-muted);
   font-size: 13px;
   line-height: 1.5;
   margin: 0 0 16px 0;
@@ -83,7 +83,7 @@
 .amount-current .label,
 .amount-target .label {
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -91,13 +91,13 @@
 .amount-current .value {
   font-size: 18px;
   font-weight: 700;
-  color: #FFD500;
+  color: var(--accent-primary);
 }
 
 .amount-target .value {
   font-size: 18px;
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
 }
 
 .goal-progress {
@@ -110,7 +110,7 @@
 .progress-bar {
   flex: 1;
   height: 12px;
-  background-color: #333;
+  background-color: var(--border-primary);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -123,7 +123,7 @@
 .progress-text {
   font-size: 13px;
   font-weight: 700;
-  color: #FFD500;
+  color: var(--accent-primary);
   min-width: 50px;
   text-align: right;
 }
@@ -133,7 +133,7 @@
   justify-content: space-between;
   align-items: flex-end;
   padding-top: 16px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--border-primary);
 }
 
 .goal-remaining {
@@ -144,7 +144,7 @@
 
 .goal-remaining .label {
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -174,13 +174,13 @@
 
 .dates {
   font-size: 12px;
-  color: #666;
+  color: var(--text-dark);
 }
 
 .btn-primary {
   padding: 12px 20px;
-  background-color: #FFD500;
-  color: #1b1b1b;
+  background-color: var(--accent-primary);
+  color: var(--accent-primary-text);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -194,14 +194,14 @@
 }
 
 .btn-primary:hover {
-  background-color: #EBC100;
+  background-color: var(--accent-primary-hover);
   transform: translateY(-2px);
 }
 
 .btn-secondary {
   padding: 12px 20px;
-  background-color: #444;
-  color: white;
+  background-color: var(--border-secondary);
+  color: var(--text-primary);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -212,12 +212,12 @@
 }
 
 .btn-secondary:hover {
-  background-color: #555;
+  background-color: var(--border-hover);
 }
 
 .btn-danger {
   padding: 12px 20px;
-  background-color: #F44336;
+  background-color: var(--color-danger);
   color: white;
   border: none;
   border-radius: 8px;
@@ -229,13 +229,13 @@
 }
 
 .btn-danger:hover {
-  background-color: #da190b;
+  background-color: var(--color-danger-hover);
 }
 
 .btn-icon {
   background: none;
   border: none;
-  color: #888;
+  color: var(--text-muted);
   font-size: 16px;
   cursor: pointer;
   padding: 8px;
@@ -247,17 +247,17 @@
 }
 
 .btn-icon:hover {
-  color: white;
-  background-color: #333;
+  color: var(--text-primary);
+  background-color: var(--border-primary);
 }
 
 .btn-icon.btn-danger:hover {
-  color: #F44336;
+  color: var(--color-danger);
   background-color: rgba(244, 67, 54, 0.1);
 }
 
 .btn-deposit {
-  background-color: #4CAF50;
+  background-color: var(--color-success);
   border: none;
   color: white;
   font-size: 16px;
@@ -280,7 +280,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -289,12 +289,13 @@
 }
 
 .modal-box {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   border-radius: 16px;
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
+  transition: background-color 0.3s ease;
 }
 
 .modal-box.small {
@@ -306,11 +307,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .modal-header h2 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 20px;
   margin: 0;
 }
@@ -318,7 +319,7 @@
 .btn-close {
   background: none;
   border: none;
-  color: #888;
+  color: var(--text-muted);
   font-size: 20px;
   cursor: pointer;
   padding: 4px;
@@ -328,7 +329,7 @@
 }
 
 .btn-close:hover {
-  color: white;
+  color: var(--text-primary);
 }
 
 .modal-box form {
@@ -337,7 +338,7 @@
 
 .modal-box > p {
   padding: 0 24px;
-  color: #ccc;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 16px 0;
 }
@@ -346,7 +347,7 @@
 .delete-info {
   padding: 16px 24px;
   margin: 0 24px 16px 24px;
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 8px;
 }
 
@@ -354,8 +355,8 @@
 .delete-info p {
   padding: 8px 0;
   margin: 0;
-  color: #ccc;
-  border-bottom: 1px solid #333;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .deposit-info p:last-child,
@@ -365,12 +366,12 @@
 
 .deposit-info strong,
 .delete-info strong {
-  color: #FFD500;
+  color: var(--accent-primary);
   margin-right: 8px;
 }
 
 .warning {
-  color: #F44336 !important;
+  color: var(--color-danger) !important;
   font-weight: 600;
   margin-top: 16px;
 }
@@ -383,7 +384,7 @@
 }
 
 .form-group label {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 13px;
   font-weight: 600;
 }
@@ -391,18 +392,19 @@
 .form-group input,
 .form-group textarea {
   padding: 12px 14px;
-  border: 2px solid #444;
+  border: 2px solid var(--border-secondary);
   border-radius: 8px;
-  background-color: #242424;
-  color: white;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
   font-size: 14px;
   font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #FFD500;
+  border-color: var(--accent-primary);
 }
 
 .form-group textarea {
@@ -421,18 +423,19 @@
   gap: 12px;
   justify-content: flex-end;
   padding: 24px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--border-primary);
 }
 
 .empty {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   border-radius: 12px;
   padding: 60px 40px;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .empty p {
-  color: #666;
+  color: var(--text-dark);
   font-size: 16px;
   margin-bottom: 20px;
 }
@@ -440,7 +443,7 @@
 .loading {
   text-align: center;
   padding: 60px;
-  color: #888;
+  color: var(--text-muted);
   font-size: 16px;
 }
 

@@ -76,7 +76,8 @@ function DashboardPage() {
       }
 
       if (categoryRes.data.success) {
-        setCategoryExpenses(categoryRes.data.data || []);
+        const catData = categoryRes.data.data;
+        setCategoryExpenses(Array.isArray(catData) ? catData : (catData?.categories || []));
       }
 
     } catch (err) {

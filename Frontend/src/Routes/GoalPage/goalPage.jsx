@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './goalPage.css';
 import axios from '../../api/axios';
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaCoins } from 'react-icons/fa';
+import { showSuccess, showError, showConfirm } from '../../utils/toast';
 
 function GoalPage() {
   const [goals, setGoals] = useState([]);
@@ -38,6 +39,7 @@ function GoalPage() {
       }
     } catch (err) {
       console.error(err);
+      showError('Error loading goals');
     } finally {
       setLoading(false);
     }
@@ -85,20 +87,22 @@ function GoalPage() {
         await axios.post('/savings/goals', data);
       }
       
+      showSuccess(editingGoal ? 'Goal updated successfully!' : 'Goal created successfully!');
       setShowModal(false);
       fetchGoals();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving goal');
+      showError(err.response?.data?.message || 'Error saving goal');
     }
   };
 
   const handleDelete = async () => {
     try {
       await axios.delete(`/savings/goals/${deletingGoal.goal_id}`);
+      showSuccess('Goal deleted successfully!');
       setShowDeleteModal(false);
       fetchGoals();
     } catch (err) {
-      alert('Error deleting goal');
+      showError('Error deleting goal');
     }
   };
 
@@ -115,10 +119,11 @@ function GoalPage() {
         amount: parseFloat(depositForm.amount)
       });
       
+      showSuccess('Deposit added successfully!');
       setShowDepositModal(false);
       fetchGoals();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error making deposit');
+      showError(err.response?.data?.message || 'Error making deposit');
     }
   };
 

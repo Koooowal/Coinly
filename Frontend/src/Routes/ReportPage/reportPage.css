@@ -1,10 +1,9 @@
 .report-page h1 {
   font-size: 36px;
-  color: #FFD500;
+  color: var(--accent-primary);
   margin: 0;
 }
 
-/* Page Header */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -19,8 +18,8 @@
 
 .btn-secondary {
   padding: 12px 20px;
-  background-color: #333;
-  color: white;
+  background-color: var(--border-primary);
+  color: var(--text-primary);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -34,7 +33,7 @@
 }
 
 .btn-secondary:hover {
-  background-color: #444;
+  background-color: var(--border-secondary);
   transform: translateY(-2px);
 }
 
@@ -47,7 +46,7 @@
   display: flex;
   gap: 8px;
   margin-bottom: 30px;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid var(--border-primary);
   overflow-x: auto;
   padding-bottom: 2px; 
 }
@@ -55,7 +54,7 @@
 .tab {
   background: none;
   border: none;
-  color: #888;
+  color: var(--text-muted);
   padding: 12px 20px;
   cursor: pointer;
   font-size: 14px;
@@ -71,18 +70,19 @@
 }
 
 .tab:hover {
-  color: white;
+  color: var(--text-primary);
 }
 
 .tab.active {
-  color: #FFD500;
-  border-bottom-color: #FFD500;
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
 }
 
 .report-content {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   border-radius: 12px;
   padding: 24px;
+  transition: background-color 0.3s ease;
 }
 
 .report-filters {
@@ -95,18 +95,19 @@
 .report-filters input,
 .report-filters select {
   padding: 12px 14px;
-  border: 2px solid #444;
+  border: 2px solid var(--border-secondary);
   border-radius: 8px;
-  background-color: #242424;
-  color: white;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
   font-size: 14px;
   font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .report-filters input:focus,
 .report-filters select:focus {
   outline: none;
-  border-color: #FFD500;
+  border-color: var(--accent-primary);
 }
 
 .stats-grid {
@@ -117,26 +118,27 @@
 }
 
 .stat-card {
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 12px;
   padding: 20px;
   border-left: 4px solid;
+  transition: background-color 0.3s ease;
 }
 
 .stat-card.income {
-  border-left-color: #4CAF50;
+  border-left-color: var(--color-success);
 }
 
 .stat-card.expense {
-  border-left-color: #F44336;
+  border-left-color: var(--color-danger);
 }
 
 .stat-card.balance {
-  border-left-color: #FFD500;
+  border-left-color: var(--accent-primary);
 }
 
 .stat-card h3 {
-  color: #888;
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -145,14 +147,14 @@
 }
 
 .stat-card .amount {
-  color: white;
+  color: var(--text-primary);
   font-size: 28px;
   font-weight: 700;
   margin: 0 0 8px 0;
 }
 
 .stat-card .count {
-  color: #888;
+  color: var(--text-muted);
   font-size: 13px;
   margin: 0;
 }
@@ -165,11 +167,11 @@
 }
 
 .stat-card .trend.positive {
-  color: #4CAF50;
+  color: var(--color-success);
 }
 
 .stat-card .trend.negative {
-  color: #F44336;
+  color: var(--color-danger);
 }
 
 .report-section {
@@ -177,7 +179,7 @@
 }
 
 .report-section h2 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 20px;
   margin: 0 0 20px 0;
 }
@@ -193,13 +195,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 8px;
   transition: background-color 0.2s ease;
 }
 
 .category-item:hover {
-  background-color: #2a2a2a;
+  background-color: var(--bg-hover);
 }
 
 .category-info {
@@ -210,13 +212,13 @@
 }
 
 .category-name {
-  color: white;
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
 }
 
 .category-type {
-  color: #888;
+  color: var(--text-muted);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -235,19 +237,19 @@
 }
 
 .amount-income {
-  color: #4CAF50;
+  color: var(--color-success);
   font-size: 16px;
   font-weight: 700;
 }
 
 .amount-expense {
-  color: #F44336;
+  color: var(--color-danger);
   font-size: 16px;
   font-weight: 700;
 }
 
 .percentage {
-  color: #888;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
 }
@@ -255,7 +257,7 @@
 .progress-bar-small {
   width: 200px;
   height: 8px;
-  background-color: #333;
+  background-color: var(--border-primary);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -276,12 +278,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .month-name {
-  color: white;
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
   min-width: 120px;
@@ -304,22 +307,23 @@
 }
 
 .month-stats .net.positive {
-  color: #4CAF50;
+  color: var(--color-success);
 }
 
 .month-stats .net.negative {
-  color: #F44336;
+  color: var(--color-danger);
 }
 
 .comparison-chart {
   margin-top: 30px;
   padding: 30px;
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 12px;
+  transition: background-color 0.3s ease;
 }
 
 .comparison-chart h3 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 18px;
   margin: 0 0 20px 0;
   text-align: center;
@@ -330,7 +334,7 @@
   height: 80px;  
   border-radius: 12px; 
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
   margin-bottom: 20px;
 }
 
@@ -382,37 +386,38 @@
 }
 
 .legend-color.income {
-  background-color: #4CAF50;
+  background-color: var(--color-success);
 }
 
 .legend-color.expense {
-  background-color: #F44336;
+  background-color: var(--color-danger);
 }
 
 .legend-text {
-  color: #ccc;
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
 }
 
 .legend-value {
-  color: white;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 700;
 }
 
 .total-info {
   padding: 16px;
-  background-color: #242424;
+  background-color: var(--bg-primary);
   border-radius: 8px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .total-info strong {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 15px;
 }
 
@@ -422,8 +427,8 @@
 
 .btn-primary {
   padding: 12px 20px;
-  background-color: #FFD500;
-  color: #1b1b1b;
+  background-color: var(--accent-primary);
+  color: var(--accent-primary-text);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -437,7 +442,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #EBC100;
+  background-color: var(--accent-primary-hover);
   transform: translateY(-2px);
 }
 
@@ -449,18 +454,17 @@
 .loading {
   text-align: center;
   padding: 60px;
-  color: #888;
+  color: var(--text-muted);
   font-size: 16px;
 }
 
-/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -469,18 +473,19 @@
 }
 
 .modal-content {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   border-radius: 16px;
   padding: 32px;
   max-width: 700px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  border: 1px solid #333;
+  border: 1px solid var(--border-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .modal-content h2 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 24px;
   margin: 0 0 24px 0;
   display: flex;
@@ -495,13 +500,12 @@
   margin-top: 24px;
 }
 
-/* Export Modal */
 .export-options {
   padding: 20px 0;
 }
 
 .export-options h3 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 16px;
   margin: 20px 0 12px 0;
 }
@@ -515,10 +519,10 @@
 
 .export-type-btn {
   padding: 16px;
-  background-color: #242424;
-  border: 2px solid #444;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-secondary);
   border-radius: 8px;
-  color: white;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -530,18 +534,18 @@
 }
 
 .export-type-btn small {
-  color: #888;
+  color: var(--text-muted);
   font-size: 12px;
   font-weight: 400;
 }
 
 .export-type-btn:hover {
-  border-color: #FFD500;
-  background-color: #2a2a2a;
+  border-color: var(--accent-primary);
+  background-color: var(--bg-hover);
 }
 
 .export-type-btn.active {
-  border-color: #FFD500;
+  border-color: var(--accent-primary);
   background-color: rgba(255, 213, 0, 0.1);
 }
 
@@ -553,10 +557,10 @@
 
 .format-btn {
   padding: 20px 16px;
-  background-color: #242424;
-  border: 2px solid #444;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-secondary);
   border-radius: 8px;
-  color: white;
+  color: var(--text-primary);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -569,18 +573,17 @@
 }
 
 .format-btn small {
-  color: #888;
+  color: var(--text-muted);
   font-size: 12px;
   font-weight: 400;
 }
 
 .format-btn:hover {
-  border-color: #FFD500;
-  background-color: #2a2a2a;
+  border-color: var(--accent-primary);
+  background-color: var(--bg-hover);
   transform: translateY(-2px);
 }
 
-/* Import Modal */
 .import-modal {
   max-width: 700px;
 }
@@ -590,13 +593,13 @@
 }
 
 .import-section h3 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 16px;
   margin: 24px 0 8px 0;
 }
 
 .import-section p {
-  color: #888;
+  color: var(--text-muted);
   font-size: 14px;
   margin-bottom: 12px;
 }
@@ -628,10 +631,10 @@
 .file-input-label {
   display: block;
   padding: 16px;
-  background-color: #242424;
-  border: 2px dashed #444;
+  background-color: var(--bg-primary);
+  border: 2px dashed var(--border-secondary);
   border-radius: 8px;
-  color: #888;
+  color: var(--text-muted);
   font-size: 14px;
   text-align: center;
   cursor: pointer;
@@ -639,26 +642,26 @@
 }
 
 .file-input-label:hover {
-  border-color: #FFD500;
+  border-color: var(--accent-primary);
   background-color: rgba(255, 213, 0, 0.05);
-  color: white;
+  color: var(--text-primary);
 }
 
 .full-width {
   width: 100%;
 }
 
-/* Preview Box */
 .preview-box {
-  background-color: #242424;
-  border: 1px solid #444;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-secondary);
   border-radius: 8px;
   padding: 16px;
   margin-top: 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .preview-box h4 {
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 14px;
   margin: 0 0 12px 0;
 }
@@ -669,11 +672,11 @@
 }
 
 .text-success {
-  color: #4CAF50;
+  color: var(--color-success);
 }
 
 .text-error {
-  color: #F44336;
+  color: var(--color-danger);
 }
 
 .errors-box {
@@ -685,7 +688,7 @@
 }
 
 .errors-box strong {
-  color: #F44336;
+  color: var(--color-danger);
   display: block;
   margin-bottom: 8px;
 }
@@ -696,7 +699,7 @@
 }
 
 .errors-box li {
-  color: #F44336;
+  color: var(--color-danger);
   font-size: 13px;
   margin: 4px 0;
 }
@@ -712,22 +715,21 @@
 }
 
 .preview-table th {
-  background-color: #1b1b1b;
+  background-color: var(--bg-secondary);
   padding: 8px;
   text-align: left;
-  color: #FFD500;
+  color: var(--accent-primary);
   font-size: 12px;
   text-transform: uppercase;
 }
 
 .preview-table td {
   padding: 8px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-primary);
   font-size: 13px;
-  color: white;
+  color: var(--text-primary);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .stats-grid {
     grid-template-columns: 1fr;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './incomesPage.css';
 import axios from '../../api/axios';
 import { FaPlus, FaEdit, FaTrash, FaFilter } from 'react-icons/fa';
+import { showSuccess, showError, showConfirm } from '../../utils/toast';
 
 function IncomesPage() {
   const [transactions, setTransactions] = useState([]);
@@ -48,6 +49,7 @@ function IncomesPage() {
       setAccounts(accs.data.data || []);
     } catch (err) {
       console.error(err);
+      showError('Error loading data');
     } finally {
       setLoading(false);
     }
@@ -90,22 +92,24 @@ function IncomesPage() {
         await axios.post('/transactions', data);
       }
       
+      showSuccess(editingId ? 'Income updated successfully!' : 'Income added successfully!');
       setShowModal(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving transaction');
+      showError(err.response?.data?.message || 'Error saving transaction');
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this income?')) return;
-    
-    try {
-      await axios.delete(`/transactions/${id}`);
-      fetchData();
-    } catch (err) {
-      alert('Error deleting transaction');
-    }
+    showConfirm('Are you sure you want to delete this income?', async () => {
+      try {
+        await axios.delete(`/transactions/${id}`);
+        showSuccess('Income deleted successfully!');
+        fetchData();
+      } catch (err) {
+        showError('Error deleting transaction');
+      }
+    });
   };
 
   const formatCurrency = (val) => {

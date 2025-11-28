@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './budgetPage.css';
 import axios from '../../api/axios';
 import { FaPlus, FaEdit, FaTrash, FaTimes } from 'react-icons/fa';
+import { showSuccess, showError } from '../../utils/toast';
 
 function BudgetPage() {
   const [budgets, setBudgets] = useState([]);
@@ -127,6 +128,7 @@ function BudgetPage() {
       
       if (editingBudget) {
         await axios.put(`/budgets/${editingBudget.budget_id}`, data);
+        showSuccess(editingBudget ? 'Budget updated successfully!' : 'Budget created successfully!');
       } else {
         await axios.post('/budgets', data);
       }
@@ -134,17 +136,18 @@ function BudgetPage() {
       setShowModal(false);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving budget');
+      showError(err.response?.data?.message || 'Error saving budget');
     }
   };
 
   const handleDelete = async () => {
     try {
       await axios.delete(`/budgets/${deletingBudget.budget_id}`);
+      showSuccess('Budget deleted successfully!');
       setShowDeleteModal(false);
       fetchData();
     } catch (err) {
-      alert('Error deleting budget');
+      showError('Error deleting budget');
     }
   };
 

@@ -75,10 +75,10 @@ export const generateYearlyReport = async (userId, year) => {
   const monthlySql = `
     SELECT 
       MONTH(date) as month,
-      SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) as income,
-      SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) as expenses,
+      SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) as total_income,
+      SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) as total_expenses,
       (SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) - 
-       SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END)) as net
+       SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END)) as net_balance
     FROM transactions
     WHERE user_id = ? AND date BETWEEN ? AND ?
     GROUP BY MONTH(date)
@@ -141,7 +141,12 @@ export const generateCategoryReport = async (userId, startDate, endDate, type) =
 
   sql += ' GROUP BY t.category_id, c.name, c.color, c.icon, t.type HAVING total > 0 ORDER BY total DESC';
 
-  return await query(sql, params);
+  const categories = await query(sql, params);
+
+  return {
+    total: totalSum,
+    categories: categories
+  };
 };
 
 export const getExpensesByPeriod = async (userId, startDate, endDate) => {

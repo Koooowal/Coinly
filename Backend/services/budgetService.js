@@ -118,3 +118,71 @@ export const deleteBudget = async (userId, budgetId) => {
 
   return { success: true };
 };
+
+export const checkBudgetWarnings = async (userId, categoryId, transactionDate) => {
+  const sql = `
+    SELECT 
+      b.*,
+      c.name as category_name
+    FROM budgets b
+    LEFT JOIN categories c ON b.category_id = c.category_id
+    WHERE b.user_id = ? 
+      AND b.category_id = ?
+      AND ? BETWEEN b.start_date AND b.end_date
+  `;
+  
+  const budgets = await query(sql, [userId, categoryId, transactionDate]);
+  
+  if (budgets.length === 0) {
+    return [];
+  }
+
+  const warnings = [];
+
+  for (const budget of budgets) {
+    const spentSql = `
+      SELECT COALESCE(SUM(amount), 0) as total_spent
+      FROM transactions
+      WHERE user_id = ?
+        AND category_id = ?
+        AND type = 'expense'
+        AND date BETWEEN ? AND ?
+    `;
+    
+    const spentResult = await query(spentSql, [
+      userId, 
+      categoryId, 
+      budget.start_date, 
+      budget.end_date
+    ]);
+    
+    const totalSpent = parseFloat(spentResult[0].total_spent || 0);
+    const budgetLimit = parseFloat(budget.amount);
+    const percentage = (totalSpent / budgetLimit) * 100;
+    const remaining = budgetLimit - totalSpent;
+
+    if (totalSpent > budgetLimit) {
+      warnings.push({
+        type: 'exceeded',
+        category_name: budget.category_name,
+        budget_limit: budgetLimit,
+        total_spent: totalSpent,
+        exceeded_by: totalSpent - budgetLimit,
+        percentage: percentage.toFixed(1),
+        message: `Budget exceeded for "${budget.category_name}"! You've spent ${totalSpent.toFixed(2)} PLN of ${budgetLimit.toFixed(2)} PLN limit (${percentage.toFixed(1)}%)`
+      });
+    } else if (percentage >= 80) {
+      warnings.push({
+        type: 'warning',
+        category_name: budget.category_name,
+        budget_limit: budgetLimit,
+        total_spent: totalSpent,
+        remaining: remaining,
+        percentage: percentage.toFixed(1),
+        message: `Budget warning for "${budget.category_name}": ${percentage.toFixed(1)}% used. Only ${remaining.toFixed(2)} PLN remaining!`
+      });
+    }
+  }
+
+  return warnings;
+};
