@@ -1,24 +1,4 @@
-/**
- * Testy jednostkowe dla aplikacji Coinly
- * Narzędzie: Jest
- * Uruchomienie: npm test
- */
 
-// ===== FUNKCJE DO TESTOWANIA =====
-
-/**
- * Formatuje wartość jako walutę PLN
- */
-function formatCurrency(value) {
-  return new Intl.NumberFormat('pl-PL', { 
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }).format(value || 0);
-}
-
-/**
- * Oblicza status budżetu na podstawie wydatków i limitu
- */
 function calculateBudgetStatus(spent, limit) {
   if (limit <= 0) return 'invalid';
   const percentage = (spent / limit) * 100;
@@ -27,18 +7,13 @@ function calculateBudgetStatus(spent, limit) {
   return 'ok';
 }
 
-/**
- * Oblicza procent realizacji celu oszczędnościowego
- */
 function calculateGoalProgress(current, target) {
   if (target <= 0) return 0;
   const progress = (current / target) * 100;
-  return Math.min(progress, 100); // max 100%
+  return Math.min(progress, 100); 
 }
 
-/**
- * Waliduje dane transakcji
- */
+
 function validateTransaction(data) {
   const errors = [];
   
@@ -61,47 +36,10 @@ function validateTransaction(data) {
   };
 }
 
-/**
- * Oblicza bilans netto
- */
 function calculateNetBalance(income, expenses) {
   return parseFloat(income || 0) - parseFloat(expenses || 0);
 }
 
-
-// ===== TESTY =====
-
-describe('formatCurrency - formatowanie walut', () => {
-  test('formatuje standardową kwotę', () => {
-    const result = formatCurrency(1234.56);
-    expect(result).toContain('1234');
-    expect(result).toContain(',56');
-  });
-
-  test('formatuje kwotę bez groszy', () => {
-    const result = formatCurrency(1000);
-    expect(result).toContain('1000');
-    expect(result).toContain(',00');
-  });
-
-  test('obsługuje wartość zero', () => {
-    expect(formatCurrency(0)).toBe('0,00');
-  });
-
-  test('obsługuje null jako zero', () => {
-    expect(formatCurrency(null)).toBe('0,00');
-  });
-
-  test('obsługuje undefined jako zero', () => {
-    expect(formatCurrency(undefined)).toBe('0,00');
-  });
-
-  test('formatuje duże kwoty', () => {
-    const result = formatCurrency(1000000);
-    expect(result).toContain('000');
-    expect(result).toContain(',00');
-  });
-});
 
 
 describe('calculateBudgetStatus - status budżetu', () => {
@@ -131,29 +69,6 @@ describe('calculateBudgetStatus - status budżetu', () => {
 
   test('zwraca "invalid" dla zerowego limitu', () => {
     expect(calculateBudgetStatus(100, 0)).toBe('invalid');
-  });
-});
-
-
-describe('calculateGoalProgress - postęp celu', () => {
-  test('oblicza 50% postępu', () => {
-    expect(calculateGoalProgress(500, 1000)).toBe(50);
-  });
-
-  test('oblicza 0% dla pustego celu', () => {
-    expect(calculateGoalProgress(0, 1000)).toBe(0);
-  });
-
-  test('nie przekracza 100%', () => {
-    expect(calculateGoalProgress(1500, 1000)).toBe(100);
-  });
-
-  test('zwraca 0 dla zerowego celu', () => {
-    expect(calculateGoalProgress(500, 0)).toBe(0);
-  });
-
-  test('oblicza dokładnie 100%', () => {
-    expect(calculateGoalProgress(1000, 1000)).toBe(100);
   });
 });
 

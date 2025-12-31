@@ -159,35 +159,50 @@ function DashboardPage() {
             <h2>Expenses by category</h2>
             <div className="pie-chart-container">
               <svg viewBox="0 0 200 200" className="pie-chart">
-                {(() => {
-                  let currentAngle = 0;
-                  return categoryExpenses.slice(0, 6).map((cat, index) => {
-                    const percentage = parseFloat(cat.percentage || 0);
-                    const angle = (percentage / 100) * 360;
-                    const startAngle = currentAngle;
-                    const endAngle = currentAngle + angle;
-                    
-                    const x1 = 100 + 90 * Math.cos((startAngle - 90) * Math.PI / 180);
-                    const y1 = 100 + 90 * Math.sin((startAngle - 90) * Math.PI / 180);
-                    const x2 = 100 + 90 * Math.cos((endAngle - 90) * Math.PI / 180);
-                    const y2 = 100 + 90 * Math.sin((endAngle - 90) * Math.PI / 180);
-                    
-                    const largeArc = angle > 180 ? 1 : 0;
-                    const path = `M 100 100 L ${x1} ${y1} A 90 90 0 ${largeArc} 1 ${x2} ${y2} Z`;
-                    
-                    currentAngle += angle;
-                    
-                    return (
-                      <path
-                        key={index}
-                        d={path}
-                        fill={pieColors[index % pieColors.length]}
-                        stroke="#1b1b1b"
-                        strokeWidth="2"
-                      />
-                    );
-                  });
-                })()}
+                {categoryExpenses.length === 0 ? (
+                  <text x="100" y="100" textAnchor="middle" fill="#666" fontSize="14">
+                    No data
+                  </text>
+                ) : categoryExpenses.length === 1 ? (
+                  <circle 
+                    cx="100" 
+                    cy="100" 
+                    r="90" 
+                    fill={pieColors[0]} 
+                    stroke="#1b1b1b" 
+                    strokeWidth="2"
+                  />
+                ) : (
+                  (() => {
+                    let currentAngle = 0;
+                    return categoryExpenses.slice(0, 6).map((cat, index) => {
+                      const percentage = parseFloat(cat.percentage || 0);
+                      const angle = (percentage / 100) * 360;
+                      const startAngle = currentAngle;
+                      const endAngle = currentAngle + angle;
+                      
+                      const x1 = 100 + 90 * Math.cos((startAngle - 90) * Math.PI / 180);
+                      const y1 = 100 + 90 * Math.sin((startAngle - 90) * Math.PI / 180);
+                      const x2 = 100 + 90 * Math.cos((endAngle - 90) * Math.PI / 180);
+                      const y2 = 100 + 90 * Math.sin((endAngle - 90) * Math.PI / 180);
+                      
+                      const largeArc = angle > 180 ? 1 : 0;
+                      const path = `M 100 100 L ${x1} ${y1} A 90 90 0 ${largeArc} 1 ${x2} ${y2} Z`;
+                      
+                      currentAngle += angle;
+                      
+                      return (
+                        <path
+                          key={index}
+                          d={path}
+                          fill={pieColors[index % pieColors.length]}
+                          stroke="#1b1b1b"
+                          strokeWidth="2"
+                        />
+                      );
+                    });
+                  })()
+                )}
                 <circle cx="100" cy="100" r="50" fill="#1b1b1b" />
               </svg>
             </div>
